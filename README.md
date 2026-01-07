@@ -19,7 +19,7 @@ A demonstration of **"Post-Docker"** architecture. This project runs a Sentiment
 ## ⚡ Quick Start (Local)
 
 ### Prerequisites
-*   [Rust](https://www.rust-lang.org/) & `wasm32-wasi` target.
+*   [Rust](https://www.rust-lang.org/) & `wasm32-wasip1` target.
 *   [Spin CLI](https://developer.fermyon.com/spin/install).
 
 ### Build & Run
