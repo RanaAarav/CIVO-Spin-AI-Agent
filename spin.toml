@@ -1,0 +1,17 @@
+spin_manifest_version = 2
+
+[application]
+name = "civo-spin-ai-agent"
+version = "0.1.0"
+authors = ["Your Name <your@email.com>"]
+description = "A serverless AI agent running on Civo K3s via WebAssembly"
+
+[[trigger.http]]
+route = "/..."
+component = "civo-spin-ai-agent"
+
+[component.civo-spin-ai-agent]
+source = "target/wasm32-wasip1/release/civo_spin_ai_agent.wasm"
+allowed_outbound_hosts = []
+ai_models = ["llama2-chat"] # Requests permission to use the Host's AI
+build = { command = "cargo build --target wasm32-wasip1 --release" }
