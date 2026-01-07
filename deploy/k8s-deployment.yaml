@@ -1,0 +1,11 @@
+apiVersion: core.spinoperator.dev/v1alpha1
+kind: SpinApp
+metadata:
+  name: civo-ai-agent
+  namespace: default
+spec:
+  # The Docker Image containing the Wasm binary
+  # In the tutorial, we show how to push this to GHCR
+  image: ghcr.io/YOUR_GITHUB_USER/civo-spin-ai-agent:v1
+  replicas: 3
+  executor: containerd-shim-spin-v2
