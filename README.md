@@ -1,35 +1,39 @@
-# Serverless AI Agent on Civo (Wasm + Rust)
+Serverless AI Inference on K3s with Wasm and Rust
+=================================================
 
 ![Rust](https://img.shields.io/badge/Rust-1.80%2B-orange)
 ![Wasm](https://img.shields.io/badge/WebAssembly-Spin-blue)
 ![Civo](https://img.shields.io/badge/Civo-Kubernetes-purple)
 
-A demonstration of **"Post-Docker"** architecture. This project runs a Sentiment Analysis AI Agent compiled to **WebAssembly**, orchestrated by **SpinKube** on a Kubernetes cluster.
+**The Problem:** Traditional AI containers (Python/Docker) are bloated, often exceeding 2GB, and suffer from cold start latency that kills agentic responsiveness.
 
-## 🚀 Why Wasm?
-*   **Size:** The final binary is < 5MB.
-*   **Startup:** < 5ms cold start.
-*   **Security:** Sandboxed by default.
+**The Solution:** This repository demonstrates a high-performance alternative. By using Rust and the Spin Framework, we compile AI agents into WebAssembly (WASM) binaries. These are deployed to Civo's K3s clusters using the SpinKube operator, achieving really low latency.
 
-## 🛠️ Architecture
-1.  **Rust Code:** Handles HTTP logic.
-2.  **Spin SDK:** Offloads AI inference to the host node (Serverless AI).
-3.  **Kubernetes:** Orchestrates the Wasm modules via the `spin-operator`.
+Technology Stack
+----------------
 
-## ⚡ Quick Start (Local)
+*   **Runtime:** WebAssembly (WASI-P1)
+*   **Framework:** Spin SDK (Fermyon)
+*   **Orchestration:** Civo K3s + SpinKube Operator
+*   **Language:** Rust 1.8x
 
-### Prerequisites
-*   [Rust](https://www.rust-lang.org/) & `wasm32-wasip1` target.
-*   [Spin CLI](https://developer.fermyon.com/spin/install).
+Key Features
+------------
 
-### Build & Run
-```bash
-# Install Wasm target
-rustup target add wasm32-wasi
+*   **Micro-Binaries:** 2.4MB total artifact size vs. 2GB+ Docker images.   
+*   **Serverless AI:** Offloads LLM inference to the host capabilities using spin-sdk::llm.
+*   **Cloud-Native:** Built for seamless deployment on Civo's optimized Kubernetes nodes.
+    
+Quick Start
+-----------
 
-# Build the project
-spin build
+1.  Install the Wasm target: ```bash rustup target add wasm32-wasip1```
+2.  Build: ```bash spin build```
+3.  Local Test: ```bash spin up --ai```
+    
+Structure
+---------
 
-# Run locally (Simulating Civo)
-spin up --ai
-```
+*   /src: Rust source code for the inference agent.
+*   spin.toml: Component manifest for the Wasm runtime.
+*   deploy/: Kubernetes manifests for Civo deployment.
