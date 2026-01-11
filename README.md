@@ -27,9 +27,9 @@ Key Features
 Quick Start
 -----------
 
-1.  Install the Wasm target: ```bash rustup target add wasm32-wasip1```
-2.  Build: ```bash spin build```
-3.  Local Test: ```bash spin up --ai```
+1.  Install the Wasm target: ```rustup target add wasm32-wasip1```
+2.  Build: ```spin build```
+3.  Local Test: ```spin up --ai```
     
 Structure
 ---------
