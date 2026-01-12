@@ -7,7 +7,6 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
-# The Spin SDK allows us to talk to the host (Serverless)
 spin-sdk = "3.0" 
 anyhow = "1.0"
 serde = { version = "1.0", features = ["derive"] }
