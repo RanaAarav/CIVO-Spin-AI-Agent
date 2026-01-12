@@ -1,39 +1,35 @@
-Serverless AI Inference on K3s with Wasm and Rust
-=================================================
+Serverless AI Inference via Wasm on Civo K3s
+============================================
 
 ![Rust](https://img.shields.io/badge/Rust-1.80%2B-orange)
 ![Wasm](https://img.shields.io/badge/WebAssembly-Spin-blue)
 ![Civo](https://img.shields.io/badge/Civo-Kubernetes-purple)
 
-**The Problem:** Traditional AI containers (Python/Docker) are bloated, often exceeding 2GB, and suffer from cold start latency that kills agentic responsiveness.
+This repository provides a reference architecture for deploying AI agents using WebAssembly (Wasm) on Civo's Kubernetes service.
 
-**The Solution:** This repository demonstrates a high-performance alternative. By using Rust and the Spin Framework, we compile AI agents into WebAssembly (WASM) binaries. These are deployed to Civo's K3s clusters using the SpinKube operator, achieving really low latency.
+Standard Docker-based AI deployments often face significant cold-start latency and heavy resource overhead. By using the Spin framework and Rust, this project compiles inference logic into a Wasm binary under 5MB. This approach enables sub-millisecond startup times and higher pod density per node compared to traditional containerized Python environments.
 
-Technology Stack
-----------------
+Technical Stack
+---------------
+*   Runtime: WebAssembly (WASI-P1)
+*   Framework: Spin SDK 3.0
+*   Infrastructure: Civo K3s with SpinKube Operator
+*   Language: Rust 1.84+
 
-*   **Runtime:** WebAssembly (WASI-P1)
-*   **Framework:** Spin SDK (Fermyon)
-*   **Orchestration:** Civo K3s + SpinKube Operator
-*   **Language:** Rust 1.8x
-
-Key Features
-------------
-
-*   **Micro-Binaries:** 2.4MB total artifact size vs. 2GB+ Docker images.   
-*   **Serverless AI:** Offloads LLM inference to the host capabilities using spin-sdk::llm.
-*   **Cloud-Native:** Built for seamless deployment on Civo's optimized Kubernetes nodes.
+Features
+--------
+*   Sub-millisecond cold starts for agentic responsiveness.
+*   Minimal attack surface via Wasm sandboxing.
+*   Native host-facilitated LLM inference using ```spin-sdk::llm```
     
-Quick Start
------------
-
-1.  Install the Wasm target: ```rustup target add wasm32-wasip1```
-2.  Build: ```spin build```
-3.  Local Test: ```spin up --ai```
+Start
+-----
+1.  Add the Wasm target: ```rustup target add wasm32-wasip1```
+2.  Compile: ```spin build```
+3.  Local Test: ```spin up --ai``` (Requires local GGUF model)
     
 Structure
 ---------
-
 *   /src: Rust source code for the inference agent.
 *   spin.toml: Component manifest for the Wasm runtime.
 *   deploy/: Kubernetes manifests for Civo deployment.
