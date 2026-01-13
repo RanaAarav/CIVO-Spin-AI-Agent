@@ -27,6 +27,25 @@ Start
 1.  Add the Wasm target: ```rustup target add wasm32-wasip1```
 2.  Compile: ```spin build```
 3.  Local Test: ```spin up --ai``` (Requires local GGUF model)
+
+### 1. Build
+```bash
+rustup target add wasm32-wasip1
+spin build
+```
+### 2. Local Test (Simulation)
+
+Since we are not on the Civo cloud yet, we use a local model file to simulate the host AI capabilities.
+
+**A. Download Model:**
+`curl -L -o llama2-chat.gguf https://huggingface.co/TheBloke/Llama-2-7b-Chat-GGUF/resolve/main/llama-2-7b-chat.Q4_K_M.gguf`
+
+**B. Run:**
+`spin up --runtime-config-file runtime-config.toml`
+
+**C. Query:**
+`curl -X POST http://localhost:3000 -d "Wasm is fast"`
+
     
 Structure
 ---------
